@@ -18,9 +18,19 @@ try:
     from sentence_transformers import SentenceTransformer
 except ImportError:
     SentenceTransformer = None
+from spacy.cli import download
 
-nlp_en = spacy.load("en_core_web_sm")
-nlp_fr = spacy.load("fr_core_news_sm")
+try:
+    nlp_en = spacy.load("en_core_web_sm")
+except:
+    download("en_core_web_sm")
+    nlp_en = spacy.load("en_core_web_sm")
+
+try:
+    nlp_fr = spacy.load("fr_core_news_sm")
+except:
+    download("fr_core_news_sm")
+    nlp_fr = spacy.load("fr_core_news_sm")
 
 st.set_page_config(
     page_title="Résumeur IA Multilingue",
