@@ -1,0 +1,15 @@
+streamlit
+spacy
+nltk
+pandas
+rouge-score
+scikit-learn
+tqdm
+pyarrow
+requests
+PyPDF2
+python-docx
+python-pptx
+sentence-transformers
+torch
+torchvision
