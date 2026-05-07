@@ -18,12 +18,20 @@ try:
     from sentence_transformers import SentenceTransformer
 except ImportError:
     SentenceTransformer = None
-from spacy.cli import download
+import subprocess
+import sys
+
+def ensure_model(model):
+    try:
+        return spacy.load(model)
+    except OSError:
+        subprocess.run([sys.executable, "-m", "spacy", "download", model])
+        return spacy.load(model)
 
 @st.cache_resource
 def load_models():
-    nlp_en = spacy.load("en_core_web_sm")
-    nlp_fr = spacy.load("fr_core_news_sm")
+    nlp_en = ensure_model("en_core_web_sm")
+    nlp_fr = ensure_model("fr_core_news_sm")
     return nlp_en, nlp_fr
 
 nlp_en, nlp_fr = load_models()
