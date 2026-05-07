@@ -22,19 +22,23 @@ except ImportError:
 import subprocess
 import sys
 
+def install_model(model):
+    subprocess.run([sys.executable, "-m", "spacy", "download", model],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
+
 @st.cache_resource
 def load_models():
-    # install models at runtime (safe fallback)
     try:
         nlp_en = spacy.load("en_core_web_sm")
     except OSError:
-        subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+        install_model("en_core_web_sm")
         nlp_en = spacy.load("en_core_web_sm")
 
     try:
         nlp_fr = spacy.load("fr_core_news_sm")
     except OSError:
-        subprocess.run([sys.executable, "-m", "spacy", "download", "fr_core_news_sm"])
+        install_model("fr_core_news_sm")
         nlp_fr = spacy.load("fr_core_news_sm")
 
     return nlp_en, nlp_fr
