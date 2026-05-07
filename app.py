@@ -19,10 +19,24 @@ try:
 except ImportError:
     SentenceTransformer = None
 
+import subprocess
+import sys
+
 @st.cache_resource
 def load_models():
-    nlp_en = spacy.load("en_core_web_sm")
-    nlp_fr = spacy.load("fr_core_news_sm")
+    # install models at runtime (safe fallback)
+    try:
+        nlp_en = spacy.load("en_core_web_sm")
+    except OSError:
+        subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+        nlp_en = spacy.load("en_core_web_sm")
+
+    try:
+        nlp_fr = spacy.load("fr_core_news_sm")
+    except OSError:
+        subprocess.run([sys.executable, "-m", "spacy", "download", "fr_core_news_sm"])
+        nlp_fr = spacy.load("fr_core_news_sm")
+
     return nlp_en, nlp_fr
 
 nlp_en, nlp_fr = load_models()
