@@ -1,5 +1,6 @@
 streamlit
 spacy
+en_core_web_sm@https://github.com
 nltk
 pandas
 rouge-score
@@ -11,5 +12,4 @@ PyPDF2
 python-docx
 python-pptx
 sentence-transformers
-torch --index-url https://pytorch.org
-torchvision --index-url https://pytorch.org
+torch
