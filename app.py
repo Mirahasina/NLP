@@ -19,6 +19,9 @@ try:
 except ImportError:
     SentenceTransformer = None
 
+nlp_en = spacy.load("en_core_web_sm")
+nlp_fr = spacy.load("fr_core_news_sm")
+
 st.set_page_config(
     page_title="Résumeur IA Multilingue",
     layout="centered"
