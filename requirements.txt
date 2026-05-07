@@ -1,6 +1,7 @@
 streamlit
-spacy
-https://github.com
+spacy==3.8.5
+en-core-web-sm==3.8.0
+fr-core-news-sm==3.8.0
 nltk
 pandas
 rouge-score
