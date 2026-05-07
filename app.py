@@ -20,17 +20,15 @@ except ImportError:
     SentenceTransformer = None
 from spacy.cli import download
 
-try:
+@st.cache_resource
+def load_models():
     nlp_en = spacy.load("en_core_web_sm")
-except:
-    download("en_core_web_sm")
-    nlp_en = spacy.load("en_core_web_sm")
+    nlp_fr = spacy.load("fr_core_news_sm")
+    return nlp_en, nlp_fr
 
-try:
-    nlp_fr = spacy.load("fr_core_news_sm")
-except:
-    download("fr_core_news_sm")
-    nlp_fr = spacy.load("fr_core_news_sm")
+nlp_en, nlp_fr = load_models()
+
+st.title("NLP FR / EN App")
 
 st.set_page_config(
     page_title="Résumeur IA Multilingue",
