@@ -19,33 +19,14 @@ try:
 except ImportError:
     SentenceTransformer = None
 
-import subprocess
-import sys
-
-def install_model(model):
-    subprocess.run([sys.executable, "-m", "spacy", "download", model],
-                   stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
 
 @st.cache_resource
 def load_models():
-    try:
-        nlp_en = spacy.load("en_core_web_sm")
-    except OSError:
-        install_model("en_core_web_sm")
-        nlp_en = spacy.load("en_core_web_sm")
-
-    try:
-        nlp_fr = spacy.load("fr_core_news_sm")
-    except OSError:
-        install_model("fr_core_news_sm")
-        nlp_fr = spacy.load("fr_core_news_sm")
-
+    nlp_en = spacy.load("en_core_web_sm")
+    nlp_fr = spacy.load("fr_core_news_sm")
     return nlp_en, nlp_fr
 
 nlp_en, nlp_fr = load_models()
-
-st.title("NLP FR / EN App")
 
 st.set_page_config(
     page_title="Résumeur IA Multilingue",
